@@ -1,205 +1,219 @@
-# 🐞 BugTrack
+# Bug / Issue Tracking System
 
-A full-stack **Bug Tracking and Issue Management System** built using React, Node.js, Express.js, and MySQL.
+A full-stack web application for managing software bugs and tracking their lifecycle from creation to resolution.
 
-BugTrack allows users to create, view, search, filter, update, and delete software bugs through a responsive web-based dashboard.
+## Features
 
-The project is being developed incrementally, with the current version focusing on core bug management and future versions planned to introduce authentication, user roles, bug assignment, authorization, and production deployment.
-
----
-
-## 📌 Project Overview
-
-Software projects often involve multiple bugs and issues that need to be tracked throughout the development lifecycle.
-
-BugTrack provides a centralized platform for managing these issues.
-
-The current system supports:
-
-- Creating bugs
-- Viewing bugs
-- Updating bugs
-- Deleting bugs
-- Searching bugs
-- Filtering bugs
-- Tracking bug status
-- Tracking priority and severity
+- Create, view, update, and delete bugs
+- Track bug lifecycle: OPEN, IN PROGRESS, RESOLVED
+- Set bug priority and severity
+- Assign bugs to developers
+- Search bugs by title and description
+- Filter bugs by status, priority, and severity
 - Dashboard statistics
-- Basic form validation
+- RESTful API architecture
+- MySQL database persistence
+- Parameterized SQL queries
+- API error handling
 - Loading and error states
 - Delete confirmation
-- RESTful API communication
-- MySQL database persistence
+- Manual refresh of bug data
 
-Future versions will extend the application into a multi-user issue management platform with authentication, authorization, user roles, and bug assignment.
+## Tech Stack
 
----
+### Frontend
+- React.js
+- Vite
+- Bootstrap
+- JavaScript
 
-# ✨ Features
+### Backend
+- Node.js
+- Express.js
+- REST API
 
-## Current Features — Version 1
+### Database
+- MySQL
+- mysql2
 
-### 🐛 Bug Management
+### Tools
+- Postman
+- MySQL Workbench
+- Git
+- GitHub
 
-Users can:
+## System Architecture
 
-- Create a new bug
-- View all bugs
-- Edit existing bugs
-- Delete bugs
-- View bug creation time
+```text
+React + Vite Frontend
+        |
+        | HTTP / REST API
+        v
+Node.js + Express Backend
+        |
+        | SQL Queries
+        v
+      MySQL
+```
 
-Each bug contains information such as:
+## Bug Lifecycle
 
+```text
+OPEN
+  |
+  v
+IN PROGRESS
+  |
+  v
+RESOLVED
+```
+
+Each bug can contain:
 - Title
 - Description
 - Status
 - Priority
 - Severity
-- Creation date
-- Assigned user field for future development
+- Assigned Developer
+- Created At
+- Updated At
 
----
+## REST API
 
-### 🔎 Search
+Base URL: `http://localhost:5000/api/bugs`
 
-Bugs can be searched using:
-
-- Bug title
-- Bug description
-
-Search results update dynamically as the user types.
-
----
-
-### 🎯 Filtering
-
-Bugs can be filtered based on:
-
-#### Status
-
-- OPEN
-- IN PROGRESS
-- RESOLVED
-- CLOSED
-
-#### Priority
-
-- LOW
-- MEDIUM
-- HIGH
-
-#### Severity
-
-- MINOR
-- MAJOR
-- CRITICAL
-
-Multiple filters can be combined with the search functionality.
-
----
-
-### 📊 Dashboard Statistics
-
-The dashboard provides an overview of the current bug database.
-
-It displays:
-
-- Total Bugs
-- Open Bugs
-- Bugs In Progress
-- Resolved Bugs
-
----
-
-### ✅ Form Validation
-
-The bug creation form includes basic validation to ensure that required information such as:
-
-- Bug title
-- Bug description
-
-is provided before submitting the bug.
-
----
-
-### ⚠️ Error & Loading Handling
-
-The frontend provides feedback for:
-
-- Loading bugs
-- Failed API requests
-- Failed bug creation
-- Empty search results
-
----
-
-### 🗑️ Delete Confirmation
-
-Before deleting a bug, the application asks the user for confirmation.
-
-This helps prevent accidental deletion of issues.
-
----
-
-### 🔄 Manual Refresh
-
-The dashboard provides a refresh button that allows users to manually retrieve the latest bug data from the backend.
-
----
-
-# 🛠️ Tech Stack
-
-## Frontend
-
-- React
-- Vite
-- Bootstrap
-- JavaScript
-- HTML
-- CSS
-
-## Backend
-
-- Node.js
-- Express.js
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/bugs` | Retrieve all bugs |
+| GET | `/api/bugs/:id` | Retrieve a specific bug |
+| POST | `/api/bugs` | Create a new bug |
+| PUT | `/api/bugs/:id` | Update a bug |
+| DELETE | `/api/bugs/:id` | Delete a bug |
 
 ## Database
 
-- MySQL
-
-## API Testing
-
-- Postman
-
-## Development Tools
-
-- VS Code
-- Git
-- GitHub
-- MySQL Workbench
-
----
-
-# 🏗️ System Architecture
+The application uses a MySQL `bugs` table containing:
 
 ```text
-                ┌─────────────────────┐
-                │      React UI       │
-                │      + Vite         │
-                └──────────┬──────────┘
-                           │
-                           │ HTTP Requests
-                           │ REST API
-                           ▼
-                ┌─────────────────────┐
-                │    Express.js       │
-                │      Backend        │
-                └──────────┬──────────┘
-                           │
-                           │ SQL Queries
-                           ▼
-                ┌─────────────────────┐
-                │       MySQL         │
-                │      Database       │
-                └─────────────────────┘
+id
+title
+description
+status
+priority
+severity
+assigned_to
+created_at
+updated_at
+```
+
+Parameterized SQL queries are used for database operations to reduce the risk of SQL injection.
+
+## Project Structure
+
+```text
+BugTrack/
+|
+├── client/
+│   └── src/
+│       ├── components/
+│       │   ├── BugCard.jsx
+│       │   ├── BugForm.jsx
+│       │   ├── BugStats.jsx
+│       │   └── Navbar.jsx
+│       ├── api.js
+│       └── App.jsx
+|
+├── server/
+│   ├── routes/
+│   │   └── bugRoutes.js
+│   ├── db.js
+│   └── index.js
+|
+├── package.json
+└── README.md
+```
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone <your-github-repository-url>
+cd bugtrack-main
+```
+
+### 2. Install dependencies
+
+```bash
+cd client
+npm install
+cd ../server
+npm install
+```
+
+### 3. Configure MySQL
+
+Create a MySQL database and `bugs` table.
+
+Create a `.env` file inside the `server` directory:
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=bugtracker
+```
+
+### 4. Start the backend
+
+```bash
+cd server
+node index.js
+```
+
+The backend runs on `http://localhost:5000`.
+
+### 5. Start the frontend
+
+Open another terminal:
+
+```bash
+cd client
+npm run dev
+```
+
+Open the Vite URL shown in the terminal.
+
+## Example Bug
+
+```text
+Title: Password reset email not received
+Description: Users do not receive the password reset email after requesting a password reset.
+Status: OPEN
+Priority: HIGH
+Severity: CRITICAL
+Assigned Developer: 101
+```
+
+The bug can subsequently be moved through `OPEN -> IN PROGRESS -> RESOLVED`.
+
+## Security
+
+The backend uses parameterized SQL queries when interacting with the MySQL database, preventing user-provided values from being directly concatenated into SQL statements.
+
+The API also performs basic input validation and returns appropriate HTTP status codes for invalid requests and missing resources.
+
+## Future Improvements
+
+- User authentication and authorization
+- Developer/user management
+- Role-based access control
+- Comments and discussion on bugs
+- File and screenshot attachments
+- Email notifications
+- Pagination for large numbers of bugs
+- Deployment to a cloud platform
+
+## Author
+
+Giridhar Sai Varma

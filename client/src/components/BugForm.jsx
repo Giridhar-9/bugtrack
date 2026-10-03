@@ -8,6 +8,7 @@ function BugForm({ onBugCreated }) {
     const [severity, setSeverity] = useState("MEDIUM");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [assignedTo, setAssignedTo] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -19,7 +20,8 @@ function BugForm({ onBugCreated }) {
             title,
             description,
             priority,
-            severity
+            severity,
+            assignedTo: assignedTo ? Number(assignedTo) : null
         };
 
         fetch(`${API_BASE_URL}/api/bugs`, {
@@ -152,7 +154,18 @@ function BugForm({ onBugCreated }) {
                         </div>
 
                     </div>
-
+                    
+                    {/*Assigned to field*/}
+                    <div className="mb-3">
+                        <label className="form-label">Assigned Developer ID</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            value={assignedTo}
+                            onChange={(e) => setAssignedTo(e.target.value)}
+                            placeholder="Enter developer ID"
+                        />
+                    </div>
                     <button
                         type="submit"
                         className="btn btn-primary"

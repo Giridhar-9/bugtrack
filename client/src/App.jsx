@@ -74,7 +74,7 @@ function App() {
     <div>
       <Navbar />
 
-      <main className="container py-4">
+      <main id="dashboard" className="container py-4">
 
         {/* Page Heading */}
         <h1 className="fw-bold">
@@ -227,7 +227,7 @@ function App() {
 
 
         {/* Bug List Heading */}
-        <div className="d-flex justify-content-between align-items-center mt-5 mb-3">
+        <div id="bugs" className="d-flex justify-content-between align-items-center mt-5 mb-3">
 
           <h2 className="mb-0">
             Bug List

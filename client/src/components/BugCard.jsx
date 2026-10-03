@@ -9,6 +9,7 @@ function BugCard({ bug, onBugDeleted, onBugUpdated }) {
     const [status, setStatus] = useState(bug.status);
     const [priority, setPriority] = useState(bug.priority);
     const [severity, setSeverity] = useState(bug.severity);
+    const [assignedTo, setAssignedTo] = useState(bug.assigned_to || "");
 
     const getStatusClass = (status) => {
         switch (status) {
@@ -91,7 +92,8 @@ function BugCard({ bug, onBugDeleted, onBugUpdated }) {
             description: description,
             status: status,
             priority: priority,
-            severity: severity
+            severity: severity,
+            assigned_to: assignedTo ? Number(assignedTo) : null
         };
 
         fetch(`${API_BASE_URL}/api/bugs/${bug.id}`, {
@@ -223,6 +225,16 @@ function BugCard({ bug, onBugDeleted, onBugUpdated }) {
 
                         </div>
 
+                        <div className="mb-2">
+                            <label className="form-label">Assigned Developer ID</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                value={assignedTo}
+                                onChange={(e) => setAssignedTo(e.target.value)}
+                            />
+                        </div>
+
                         <button
                             type="submit"
                             className="btn btn-success me-2"
@@ -271,6 +283,11 @@ function BugCard({ bug, onBugDeleted, onBugUpdated }) {
                     {bug.description}
                 </p>
 
+                <p>
+                    <strong>Assigned Developer:</strong>{" "}
+                    {bug.assigned_to || "Unassigned"}
+                </p>
+                
                 <small className="text-muted d-block mb-3">
                     Created: {new Date(bug.created_at).toLocaleString()}
                 </small>
