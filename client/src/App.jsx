@@ -267,12 +267,6 @@ function App() {
         ) : filteredBugs.length === 0 ? (
 
           <div className="alert alert-info">
-            Loading bugs...
-          </div>
-
-        ) : filteredBugs.length === 0 ? (
-
-          <div className="alert alert-info">
             No bugs match your search or filters.
           </div>
 

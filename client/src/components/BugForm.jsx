@@ -5,7 +5,7 @@ function BugForm({ onBugCreated }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [priority, setPriority] = useState("MEDIUM");
-    const [severity, setSeverity] = useState("MEDIUM");
+    const [severity, setSeverity] = useState("MAJOR");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const [assignedTo, setAssignedTo] = useState("");
@@ -21,7 +21,7 @@ function BugForm({ onBugCreated }) {
             description,
             priority,
             severity,
-            assignedTo: assignedTo ? Number(assignedTo) : null
+            assigned_to: assignedTo ? Number(assignedTo) : null
         };
 
         fetch(`${API_BASE_URL}/api/bugs`, {
@@ -47,6 +47,7 @@ function BugForm({ onBugCreated }) {
                 setDescription("");
                 setPriority("MEDIUM");
                 setSeverity("MEDIUM");
+                setAssignedTo("");
 
                 onBugCreated();
             })
